@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Молва — бесплатный отчёт о репутации ресторана</title>
+<meta name="description" content="Молва собирает отзывы о вашем ресторане с карт, отзовиков и приложений доставки и присылает бесплатный отчёт с тональностью, алертами и сравнением с конкурентами." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --petrol-900:#0d2b29;
+    --petrol-800:#123c39;
+    --petrol-700:#1a4d48;
+    --paper:#f5f6f1;
+    --paper-card:#ffffff;
+    --ink:#17211f;
+    --ink-soft:#4a5652;
+    --brass:#c2963f;
+    --brass-light:#e3bf75;
+    --signal-green:#3f8d72;
+    --signal-green-bg:#e6f1ec;
+    --signal-red:#c6543a;
+    --signal-red-bg:#f7e9e4;
+    --line:rgba(23,33,31,0.13);
+    --line-dark:rgba(245,246,241,0.16);
+    --radius-s:8px;
+    --radius-m:14px;
+    --radius-l:22px;
+    --shadow-card:0 20px 45px -25px rgba(13,43,41,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:'Fraunces', Georgia, serif; margin:0; font-weight:600; letter-spacing:-0.01em; }
+  p{ margin:0; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; }
+
+  :focus-visible{
+    outline:3px solid var(--brass);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin-inline:auto;
+    padding-inline:24px;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:relative;
+    z-index:5;
+    padding-block:22px;
+    background:var(--petrol-900);
+  }
+  .site-header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:500;
+    font-size:17px;
+    letter-spacing:0.02em;
+    color:var(--paper);
+    text-decoration:none;
+  }
+  .brand__dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--brass);
+    box-shadow:0 0 0 4px rgba(194,150,63,0.25);
+    animation:pulse 2.4s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 0 4px rgba(194,150,63,0.25); }
+    50%{ box-shadow:0 0 0 7px rgba(194,150,63,0.08); }
+  }
+  .header-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--paper);
+    text-decoration:none;
+    border:1px solid var(--line-dark);
+    padding:9px 16px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  .header-cta:hover{ border-color:var(--brass); background:rgba(245,246,241,0.06); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 140% at 8% -10%, #163f3b 0%, var(--petrol-900) 55%),
+      var(--petrol-900);
+    color:var(--paper);
+    padding-block:56px 96px;
+    position:relative;
+    overflow:clip;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
+    gap:56px;
+    align-items:center;
+  }
+  .hero__eyebrow{ color:var(--brass-light); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+  .hero__eyebrow::before{
+    content:"";
+    width:6px; height:6px; border-radius:50%;
+    background:var(--signal-green);
+    box-shadow:0 0 0 3px rgba(63,141,114,0.3);
+  }
+  .hero h1{
+    font-size:clamp(32px, 4.6vw, 52px);
+    line-height:1.06;
+    color:var(--paper);
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--brass-light);
+  }
+  .hero__sub{
+    margin-top:22px;
+    max-width:46ch;
+    font-size:17px;
+    color:rgba(245,246,241,0.82);
+  }
+  .hero__actions{
+    margin-top:34px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-weight:600;
+    font-size:15.5px;
+    padding:15px 26px;
+    border-radius:999px;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn--brass{
+    background:var(--brass);
+    color:#1c1204;
+    box-shadow:0 14px 30px -12px rgba(194,150,63,0.55);
+  }
+  .btn--brass:hover{ background:var(--brass-light); transform:translateY(-1px); }
+  .btn--brass:active{ transform:translateY(0); }
+  .hero__meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:rgba(245,246,241,0.65);
+  }
+
+  /* signature: ticker feeding into report card */
+  .signal{
+    position:relative;
+    height:420px;
+  }
+  .ticker{
+    position:absolute;
+    inset:0 0 0 auto;
+    width:230px;
+    right:8%;
+    top:-30px;
+    height:340px;
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
+            mask-image:linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
+  }
+  .ticker__track{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    animation:scrollUp 16s linear infinite;
+  }
+  .chip{
+    background:rgba(245,246,241,0.06);
+    border:1px solid var(--line-dark);
+    border-radius:var(--radius-m);
+    padding:11px 13px;
+    font-size:12.5px;
+    color:rgba(245,246,241,0.88);
+    backdrop-filter:blur(2px);
+  }
+  .chip__top{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:rgba(245,246,241,0.55);
+    margin-bottom:6px;
+    letter-spacing:.03em;
+  }
+  .chip__stars{ color:var(--brass-light); }
+  @keyframes scrollUp{
+    0%{ transform:translateY(0); }
+    100%{ transform:translateY(-50%); }
+  }
+
+  .report-card{
+    position:absolute;
+    left:0;
+    bottom:6px;
+    width:min(300px, 78%);
+    background:var(--paper-card);
+    color:var(--ink);
+    border-radius:var(--radius-l);
+    padding:22px;
+    box-shadow:var(--shadow-card);
+  }
+  .report-card__head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .report-card__label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .report-card__score{
+    font-family:'Fraunces', serif;
+    font-size:30px;
+    font-weight:600;
+    line-height:1;
+  }
+  .badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    padding:4px 9px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .badge--alert{ background:var(--signal-red-bg); color:var(--signal-red); }
+  .badge--good{ background:var(--signal-green-bg); color:var(--signal-green); }
+  .report-card__bars{ display:flex; flex-direction:column; gap:9px; }
+  .bar-row{ display:flex; align-items:center; gap:9px; }
+  .bar-row__label{ font-size:11.5px; color:var(--ink-soft); width:64px; flex-shrink:0; }
+  .bar-row__track{ flex:1; height:6px; border-radius:99px; background:var(--line); overflow:hidden; }
+  .bar-row__fill{ height:100%; border-radius:99px; background:var(--petrol-700); }
+  .bar-row__fill--you{ background:var(--brass); }
+
+  /* ---------- trust strip ---------- */
+  .trust{
+    background:var(--paper-card);
+    border-bottom:1px solid var(--line);
+  }
+  .trust .wrap{
+    padding-block:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:26px 34px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .trust__label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    flex-shrink:0;
+  }
+  .trust__logos{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+    flex:1;
+  }
+  .plat{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .plat svg{ opacity:.7; flex-shrink:0; }
+
+  /* ---------- sections ---------- */
+  section{ padding-block:88px; }
+  .section-head{ max-width:56ch; margin-bottom:48px; }
+  .section-head .eyebrow{ color:var(--brass); margin-bottom:12px; display:block; }
+  .section-head h2{ font-size:clamp(26px,3.2vw,36px); }
+  .section-head p{ margin-top:14px; color:var(--ink-soft); font-size:16px; max-width:52ch; }
+
+  /* how it works — receipt list */
+  .receipt{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-l);
+    max-width:720px;
+    padding:8px 0;
+    box-shadow:0 30px 60px -40px rgba(13,43,41,0.25);
+  }
+  .receipt__item{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;
+    padding:22px 28px;
+    border-bottom:1px dashed var(--line);
+  }
+  .receipt__item:last-child{ border-bottom:none; }
+  .receipt__num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--brass);
+    padding-top:2px;
+  }
+  .receipt__item h3{ font-size:17.5px; font-weight:600; margin-bottom:6px; }
+  .receipt__item p{ color:var(--ink-soft); font-size:14.5px; max-width:52ch; }
+  .receipt__time{
+    display:inline-block;
+    margin-top:9px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--signal-green);
+    background:var(--signal-green-bg);
+    padding:3px 9px;
+    border-radius:999px;
+  }
+
+  /* ---------- form ---------- */
+  .form-section{
+    background:var(--petrol-900);
+    color:var(--paper);
+  }
+  .form-section .wrap{
+    display:grid;
+    grid-template-columns:minmax(0,0.85fr) minmax(0,1fr);
+    gap:56px;
+    align-items:start;
+  }
+  .form-section .section-head p{ color:rgba(245,246,241,0.72); }
+  .form-section .eyebrow{ color:var(--brass-light); }
+  .form-section h2{ color:var(--paper); }
+
+  .assurances{ margin-top:28px; display:flex; flex-direction:column; gap:12px; }
+  .assurances li{
+    display:flex; align-items:center; gap:10px;
+    font-size:14px; color:rgba(245,246,241,0.82);
+  }
+  .assurances svg{ flex-shrink:0; color:var(--signal-green); }
+
+  .form-card{
+    background:var(--paper-card);
+    color:var(--ink);
+    border-radius:var(--radius-l);
+    padding:36px;
+    box-shadow:var(--shadow-card);
+  }
+  .form-card__ticket{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px dashed var(--line);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:7px;
+  }
+  .field input,
+  .field select{
+    width:100%;
+    font-family:'Inter', sans-serif;
+    font-size:15px;
+    padding:13px 14px;
+    border-radius:var(--radius-s);
+    border:1.5px solid var(--line);
+    background:var(--paper);
+    color:var(--ink);
+    transition:border-color .15s ease;
+  }
+  .field input::placeholder{ color:#9aa39f; }
+  .field input:focus,
+  .field select:focus{ border-color:var(--petrol-700); }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-note{
+    margin-top:6px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .submit-btn{
+    width:100%;
+    justify-content:center;
+    margin-top:8px;
+    font-size:16px;
+    padding:16px 26px;
+  }
+  .form-status{
+    margin-top:16px;
+    font-size:13.5px;
+    border-radius:var(--radius-s);
+    padding:12px 14px;
+    display:none;
+  }
+  .form-status.is-visible{ display:block; }
+  .form-status.is-success{ background:var(--signal-green-bg); color:var(--signal-green); }
+  .form-status.is-error{ background:var(--signal-red-bg); color:var(--signal-red); }
+  .field.has-error input,
+  .field.has-error select{ border-color:var(--signal-red); }
+  .field__error{
+    display:none;
+    color:var(--signal-red);
+    font-size:12px;
+    margin-top:6px;
+  }
+  .field.has-error .field__error{ display:block; }
+
+  /* ---------- footer ---------- */
+  .site-footer{ padding-block:40px; border-top:1px solid var(--line); }
+  .site-footer .wrap{
+    display:flex; flex-wrap:wrap; gap:14px 24px;
+    align-items:center; justify-content:space-between;
+    font-size:13px; color:var(--ink-soft);
+  }
+  .site-footer .brand{ color:var(--ink); }
+  .site-footer .brand__dot{ background:var(--brass); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero .wrap{ grid-template-columns:1fr; gap:40px; }
+    .signal{ height:340px; }
+    .form-section .wrap{ grid-template-columns:1fr; }
+    section{ padding-block:64px; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding-inline:18px; }
+    .hero{ padding-block:40px 64px; }
+    .field-row{ grid-template-columns:1fr; }
+    .form-card{ padding:24px; }
+    .receipt__item{ padding:18px; grid-template-columns:38px 1fr; }
+    .trust .wrap{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticker__track{ animation:none; }
+    .brand__dot{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <span class="brand__dot" aria-hidden="true"></span>
+        МОЛВА
+      </a>
+      <a class="header-cta" href="#form">Получить отчёт →</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" style="padding-top:8px;">
+      <div class="wrap">
+        <div>
+          <p class="hero__eyebrow eyebrow">Бесплатный разовый отчёт · без карты</p>
+          <h1>Узнайте, что на&nbsp;самом деле говорят о&nbsp;вашем ресторане <em>в сети</em></h1>
+          <p class="hero__sub">Молва собирает упоминания и отзывы с карт, отзовиков и приложений доставки — и присылает готовый разбор: тональность, кризисные алерты и сравнение с соседями по улице.</p>
+          <div class="hero__actions">
+            <a class="btn btn--brass" href="#form">Получить бесплатный отчёт</a>
+            <span class="hero__meta">~10–15 минут на почту</span>
+          </div>
+        </div>
+
+        <div class="signal" aria-hidden="true">
+          <div class="ticker">
+            <div class="ticker__track" id="tickerTrack"></div>
+          </div>
+          <div class="report-card">
+            <div class="report-card__head">
+              <div>
+                <p class="report-card__label">Индекс репутации</p>
+                <p class="report-card__score">7.8<span style="font-size:15px;color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:400;"> / 10</span></p>
+              </div>
+              <span class="badge badge--alert">2 алерта</span>
+            </div>
+            <div class="report-card__bars">
+              <div class="bar-row">
+                <span class="bar-row__label">Вы</span>
+                <span class="bar-row__track"><span class="bar-row__fill bar-row__fill--you" style="width:78%"></span></span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-row__label">Соседи</span>
+                <span class="bar-row__track"><span class="bar-row__fill" style="width:61%"></span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="trust" style="padding-block:0;">
+      <div class="wrap">
+        <span class="trust__label">Собираем данные с</span>
+        <div class="trust__logos">
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Google Карты</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Яндекс.Карты</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>2ГИС</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.7 6.9L12 17.3 5.7 20.8l1.7-6.9-5.4-4.7 7.1-.6L12 2Z"/></svg>Tripadvisor</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Wolt / Glovo</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Yandex Eda / Chocofood</span>
+          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".9" fill="currentColor" stroke="none"/></svg>Соцсети</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Как это работает</span>
+          <h2>От формы до отчёта — один цикл, без вашего участия</h2>
+          <p>Молва делает всю рутинную работу сама: ищет упоминания, читает их на языке площадки и переводит в понятную оценку.</p>
+        </div>
+
+        <div class="receipt">
+          <div class="receipt__item">
+            <span class="receipt__num">01</span>
+            <div>
+              <h3>Укажите заведение</h3>
+              <p>Название, город и страна — форма ниже занимает меньше минуты, карта не нужна.</p>
+            </div>
+          </div>
+          <div class="receipt__item">
+            <span class="receipt__num">02</span>
+            <div>
+              <h3>Молва сканирует сеть</h3>
+              <p>Карты, отзовики, приложения доставки и соцсети — на языке вашего региона и соседних рынков.</p>
+            </div>
+          </div>
+          <div class="receipt__item">
+            <span class="receipt__num">03</span>
+            <div>
+              <h3>Считаем тональность</h3>
+              <p>Что хвалят, на что жалуются и есть ли признаки назревающего кризиса — до того, как он выйдет наружу.</p>
+            </div>
+          </div>
+          <div class="receipt__item">
+            <span class="receipt__num">04</span>
+            <div>
+              <h3>Отчёт приходит на почту</h3>
+              <p>Индекс репутации, тревожные отзывы и сравнение с соседними заведениями — в одном письме.</p>
+              <span class="receipt__time">≈ 10–15 минут</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="form-section" id="form">
+      <div class="wrap">
+        <div>
+          <div class="section-head" style="margin-bottom:0;">
+            <span class="eyebrow">Бесплатный отчёт</span>
+            <h2>Получите разбор репутации на почту</h2>
+            <p>Разовый отчёт — бесплатно. Дальше решаете сами, нужен ли вам ежедневный дашборд.</p>
+          </div>
+          <ul class="assurances">
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Бесплатно, без банковской карты</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Конфиденциально — данные не передаются третьим лицам</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Готово за ~10–15 минут, придёт на почту</li>
+          </ul>
+        </div>
+
+        <form class="form-card" id="reportForm" novalidate>
+          <div class="form-card__ticket">
+            <span>ЗАЯВКА №&nbsp;⟡</span>
+            <span id="ticketClock"></span>
+          </div>
+
+          <div class="field" data-field="restaurant_name">
+            <label for="restaurant_name">Название ресторана</label>
+            <input id="restaurant_name" name="restaurant_name" type="text" autocomplete="organization" placeholder="Например, «Кафе Веранда»" required />
+            <p class="field__error">Укажите название заведения</p>
+          </div>
+
+          <div class="field-row">
+            <div class="field" data-field="city">
+              <label for="city">Город</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="Тбилиси" required />
+              <p class="field__error">Укажите город</p>
+            </div>
+            <div class="field" data-field="country">
+              <label for="country">Страна</label>
+              <select id="country" name="country" required>
+                <option value="" disabled selected>Выберите страну</option>
+                <optgroup label="Кавказ">
+                  <option value="GE">Грузия</option>
+                  <option value="AM">Армения</option>
+                  <option value="AZ">Азербайджан</option>
+                </optgroup>
+                <optgroup label="Средняя Азия">
+                  <option value="KZ">Казахстан</option>
+                  <option value="UZ">Узбекистан</option>
+                  <option value="KG">Киргизия</option>
+                </optgroup>
+                <optgroup label="Западная Европа">
+                  <option value="DE">Германия</option>
+                  <option value="FR">Франция</option>
+                  <option value="ES">Испания</option>
+                  <option value="IT">Италия</option>
+                  <option value="NL">Нидерланды</option>
+                </optgroup>
+                <optgroup label="Восточная Европа">
+                  <option value="PL">Польша</option>
+                  <option value="CZ">Чехия</option>
+                  <option value="RO">Румыния</option>
+                  <option value="BG">Болгария</option>
+                  <option value="UA">Украина</option>
+                </optgroup>
+              </select>
+              <p class="field__error">Выберите страну</p>
+            </div>
+          </div>
+
+          <div class="field" data-field="email">
+            <label for="email">Email — куда прислать отчёт</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@restaurant.com" required />
+            <p class="field__error">Введите корректный email</p>
+          </div>
+
+          <button class="btn btn--brass submit-btn" type="submit">
+            <span id="submitLabel">Отправить и получить отчёт</span>
+          </button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь получить один email с отчётом. Без спама, без карты.</p>
+
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <span class="brand__dot" aria-hidden="true"></span>
+        МОЛВА
+      </a>
+      <span>Кавказ · Средняя Азия · Европа — мониторинг репутации ресторанов и кафе</span>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  // ---- ticker content: illustrative multilingual review fragments ----
+  var snippets = [
+    { lang:'GE', stars:'★★★★★', text:'საუკეთესო ხინკალი ქალაქში' },
+    { lang:'RU', stars:'★★★☆☆', text:'Стейк передержали, но зал уютный' },
+    { lang:'AM', stars:'★★★★☆', text:'Հրաշալի սպասարկում, կգանք կրկին' },
+    { lang:'KZ', stars:'★★★★★', text:'Тағамдар өте дәмді, тез әкелді' },
+    { lang:'DE', stars:'★★★★☆', text:'Tolles Ambiente, aber etwas laut' },
+    { lang:'FR', stars:'★★☆☆☆', text:'Service lent un vendredi soir' },
+    { lang:'PL', stars:'★★★★★', text:'Świetna kuchnia, warto czekać' },
+    { lang:'RU', stars:'★★★★☆', text:'Официант перепутал заказ, но извинились' }
+  ];
+  var track = document.getElementById('tickerTrack');
+  if (track) {
+    var html = '';
+    // duplicate list for seamless loop
+    [snippets, snippets].forEach(function(list){
+      list.forEach(function(s){
+        html += '<div class="chip"><div class="chip__top"><span>' + s.lang + '</span><span class="chip__stars">' + s.stars + '</span></div>' + s.text + '</div>';
+      });
+    });
+    track.innerHTML = html;
+  }
+
+  // ---- ticket clock in form header ----
+  var clock = document.getElementById('ticketClock');
+  if (clock) {
+    var now = new Date();
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    clock.textContent = pad(now.getDate()) + '.' + pad(now.getMonth()+1) + '.' + now.getFullYear();
+  }
+
+  // ---- form handling ----
+  var form = document.getElementById('reportForm');
+  var status = document.getElementById('formStatus');
+  var submitLabel = document.getElementById('submitLabel');
+
+  function setFieldError(name, hasError){
+    var field = form.querySelector('[data-field="' + name + '"]');
+    if (!field) return;
+    field.classList.toggle('has-error', hasError);
+  }
+
+  function validate(data){
+    var errors = {};
+    if (!data.restaurant_name.trim()) errors.restaurant_name = true;
+    if (!data.city.trim()) errors.city = true;
+    if (!data.country) errors.country = true;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+    if (!emailOk) errors.email = true;
+    return errors;
+  }
+
+  function showStatus(kind, message){
+    status.textContent = message;
+    status.className = 'form-status is-visible is-' + kind;
+  }
+
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var data = {
+        restaurant_name: form.restaurant_name.value,
+        city: form.city.value,
+        country: form.country.value,
+        email: form.email.value
+      };
+
+      var errors = validate(data);
+      ['restaurant_name','city','country','email'].forEach(function(name){
+        setFieldError(name, !!errors[name]);
+      });
+
+      if (Object.keys(errors).length > 0) {
+        showStatus('error', 'Проверьте поля, отмеченные красным.');
+        return;
+      }
+
+      var submitBtn = form.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Отправляем…';
+      status.className = 'form-status';
+
+      fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(res){
+        if (!res.ok) throw new Error('bad response');
+        showStatus('success', 'Готово! Отчёт придёт на ' + data.email + ' в течение 10–15 минут.');
+        form.reset();
+      })
+      .catch(function(){
+        showStatus('error', 'Не получилось отправить. Попробуйте ещё раз через минуту.');
+      })
+      .finally(function(){
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Отправить и получить отчёт';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
