@@ -5,9 +5,16 @@
         "source": "github",
         "repo": "anthropics/skills"
       }
+    },
+    "nextlevelbuilder": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
     }
   },
   "enabledPlugins": {
-    "frontend-design@anthropic": true
+    "frontend-design@anthropic": true,
+    "ui-ux-pro-max-skill@nextlevelbuilder": true
   }
 }
