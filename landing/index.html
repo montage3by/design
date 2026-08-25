@@ -3,39 +3,41 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Молва — бесплатный отчёт о репутации ресторана</title>
-<meta name="description" content="Молва собирает отзывы о вашем ресторане с карт, отзовиков и приложений доставки и присылает бесплатный отчёт с тональностью, алертами и сравнением с конкурентами." />
+<title>Repas — бесплатный отчёт о репутации ресторана</title>
+<meta name="description" content="Repas собирает отзывы о вашем ресторане с карт, отзовиков и приложений доставки и присылает бесплатный отчёт с тональностью, алертами и сравнением с конкурентами." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --petrol-900:#0d2b29;
-    --petrol-800:#123c39;
-    --petrol-700:#1a4d48;
-    --paper:#f5f6f1;
-    --paper-card:#ffffff;
-    --ink:#17211f;
-    --ink-soft:#4a5652;
-    --brass:#c2963f;
-    --brass-light:#e3bf75;
-    --signal-green:#3f8d72;
-    --signal-green-bg:#e6f1ec;
-    --signal-red:#c6543a;
-    --signal-red-bg:#f7e9e4;
-    --line:rgba(23,33,31,0.13);
-    --line-dark:rgba(245,246,241,0.16);
+    --primary:#e8603c;
+    --primary-dark:#c94f2f;
+    --primary-tint:#f2947a;
+    --secondary:#f5ecd7;
+    --secondary-deep:#e7d9b8;
+    --accent:#2c2c2c;
+    --accent-soft:#3d3d3d;
+    --bg:#fdfaf5;
+    --card:#ffffff;
+    --ink:#2c2c2c;
+    --ink-soft:#6b6058;
+    --signal-green:#3f8f6d;
+    --signal-green-bg:#e8f1ec;
+    --signal-red:#b23a2e;
+    --signal-red-bg:#f6e4df;
+    --line:rgba(44,44,44,0.13);
+    --line-onaccent:rgba(253,250,245,0.18);
     --radius-s:8px;
     --radius-m:14px;
     --radius-l:22px;
-    --shadow-card:0 20px 45px -25px rgba(13,43,41,0.35);
+    --shadow-card:0 20px 45px -25px rgba(44,44,44,0.32);
   }
 
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{
     margin:0;
-    background:var(--paper);
+    background:var(--bg);
     color:var(--ink);
     font-family:'Inter', system-ui, sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -49,7 +51,7 @@
   button{ font-family:inherit; }
 
   :focus-visible{
-    outline:3px solid var(--brass);
+    outline:3px solid var(--primary);
     outline-offset:3px;
     border-radius:4px;
   }
@@ -71,8 +73,8 @@
   .site-header{
     position:relative;
     z-index:5;
-    padding-block:22px;
-    background:var(--petrol-900);
+    padding-block:20px;
+    background:var(--accent);
   }
   .site-header .wrap{
     display:flex;
@@ -83,45 +85,32 @@
   .brand{
     display:flex;
     align-items:center;
-    gap:10px;
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:500;
-    font-size:17px;
-    letter-spacing:0.02em;
-    color:var(--paper);
     text-decoration:none;
   }
-  .brand__dot{
-    width:9px; height:9px; border-radius:50%;
-    background:var(--brass);
-    box-shadow:0 0 0 4px rgba(194,150,63,0.25);
-    animation:pulse 2.4s ease-in-out infinite;
-    flex-shrink:0;
-  }
-  @keyframes pulse{
-    0%,100%{ box-shadow:0 0 0 4px rgba(194,150,63,0.25); }
-    50%{ box-shadow:0 0 0 7px rgba(194,150,63,0.08); }
-  }
+  .brand img{ height:26px; width:auto; }
   .header-cta{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px;
-    color:var(--paper);
+    color:var(--bg);
     text-decoration:none;
-    border:1px solid var(--line-dark);
+    border:1px solid var(--line-onaccent);
     padding:9px 16px;
     border-radius:999px;
     white-space:nowrap;
     transition:border-color .18s ease, background .18s ease;
   }
-  .header-cta:hover{ border-color:var(--brass); background:rgba(245,246,241,0.06); }
+  .header-cta:hover{ border-color:var(--primary); background:rgba(253,250,245,0.06); }
 
   /* ---------- hero ---------- */
   .hero{
     background:
-      radial-gradient(120% 140% at 8% -10%, #163f3b 0%, var(--petrol-900) 55%),
-      var(--petrol-900);
-    color:var(--paper);
-    padding-block:56px 96px;
+      radial-gradient(130% 160% at 10% -20%, #ef7a57 0%, var(--primary) 55%),
+      var(--primary);
+    color:var(--accent);
+    padding-block:64px 72px;
+    min-height:90vh;
+    display:flex;
+    align-items:center;
     position:relative;
     overflow:clip;
   }
@@ -130,31 +119,36 @@
     grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
     gap:56px;
     align-items:center;
+    width:100%;
   }
-  .hero__eyebrow{ color:var(--brass-light); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+  .hero__eyebrow{ color:rgba(44,44,44,0.75); margin-bottom:22px; display:flex; align-items:center; gap:10px;}
   .hero__eyebrow::before{
     content:"";
     width:6px; height:6px; border-radius:50%;
     background:var(--signal-green);
-    box-shadow:0 0 0 3px rgba(63,141,114,0.3);
+    box-shadow:0 0 0 3px rgba(63,143,109,0.3);
   }
   .hero h1{
-    font-size:clamp(32px, 4.6vw, 52px);
-    line-height:1.06;
-    color:var(--paper);
+    font-size:clamp(38px, 5.4vw, 64px);
+    line-height:1.05;
+    color:var(--accent);
   }
   .hero h1 em{
     font-style:normal;
-    color:var(--brass-light);
+    display:inline-block;
+    background:var(--accent);
+    color:var(--bg);
+    padding:2px 14px 6px;
+    border-radius:10px;
   }
   .hero__sub{
-    margin-top:22px;
-    max-width:46ch;
-    font-size:17px;
-    color:rgba(245,246,241,0.82);
+    margin-top:26px;
+    max-width:48ch;
+    font-size:18.5px;
+    color:rgba(44,44,44,0.78);
   }
   .hero__actions{
-    margin-top:34px;
+    margin-top:38px;
     display:flex;
     align-items:center;
     gap:18px;
@@ -166,38 +160,38 @@
     gap:10px;
     font-weight:600;
     font-size:15.5px;
-    padding:15px 26px;
+    padding:16px 28px;
     border-radius:999px;
     border:1px solid transparent;
     cursor:pointer;
     text-decoration:none;
     transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
   }
-  .btn--brass{
-    background:var(--brass);
-    color:#1c1204;
-    box-shadow:0 14px 30px -12px rgba(194,150,63,0.55);
+  .btn--dark{
+    background:var(--accent);
+    color:var(--bg);
+    box-shadow:0 16px 32px -14px rgba(44,44,44,0.55);
   }
-  .btn--brass:hover{ background:var(--brass-light); transform:translateY(-1px); }
-  .btn--brass:active{ transform:translateY(0); }
+  .btn--dark:hover{ background:var(--accent-soft); transform:translateY(-1px); }
+  .btn--dark:active{ transform:translateY(0); }
   .hero__meta{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px;
-    color:rgba(245,246,241,0.65);
+    color:rgba(44,44,44,0.62);
   }
 
   /* signature: ticker feeding into report card */
   .signal{
     position:relative;
-    height:420px;
+    height:480px;
   }
   .ticker{
     position:absolute;
     inset:0 0 0 auto;
     width:230px;
     right:8%;
-    top:-30px;
-    height:340px;
+    top:-20px;
+    height:360px;
     overflow:hidden;
     -webkit-mask-image:linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
             mask-image:linear-gradient(to bottom, transparent, black 18%, black 72%, transparent);
@@ -209,23 +203,23 @@
     animation:scrollUp 16s linear infinite;
   }
   .chip{
-    background:rgba(245,246,241,0.06);
-    border:1px solid var(--line-dark);
+    background:rgba(253,250,245,0.4);
+    border:1px solid rgba(44,44,44,0.16);
     border-radius:var(--radius-m);
     padding:11px 13px;
     font-size:12.5px;
-    color:rgba(245,246,241,0.88);
-    backdrop-filter:blur(2px);
+    color:var(--accent);
+    backdrop-filter:blur(3px);
   }
   .chip__top{
     display:flex; justify-content:space-between; align-items:center;
     font-family:'IBM Plex Mono', monospace;
     font-size:10.5px;
-    color:rgba(245,246,241,0.55);
+    color:rgba(44,44,44,0.6);
     margin-bottom:6px;
     letter-spacing:.03em;
   }
-  .chip__stars{ color:var(--brass-light); }
+  .chip__stars{ color:var(--accent); }
   @keyframes scrollUp{
     0%{ transform:translateY(0); }
     100%{ transform:translateY(-50%); }
@@ -234,12 +228,12 @@
   .report-card{
     position:absolute;
     left:0;
-    bottom:6px;
-    width:min(300px, 78%);
-    background:var(--paper-card);
+    bottom:16px;
+    width:min(310px, 78%);
+    background:var(--card);
     color:var(--ink);
     border-radius:var(--radius-l);
-    padding:22px;
+    padding:24px;
     box-shadow:var(--shadow-card);
   }
   .report-card__head{
@@ -255,7 +249,7 @@
   }
   .report-card__score{
     font-family:'Fraunces', serif;
-    font-size:30px;
+    font-size:32px;
     font-weight:600;
     line-height:1;
   }
@@ -272,12 +266,12 @@
   .bar-row{ display:flex; align-items:center; gap:9px; }
   .bar-row__label{ font-size:11.5px; color:var(--ink-soft); width:64px; flex-shrink:0; }
   .bar-row__track{ flex:1; height:6px; border-radius:99px; background:var(--line); overflow:hidden; }
-  .bar-row__fill{ height:100%; border-radius:99px; background:var(--petrol-700); }
-  .bar-row__fill--you{ background:var(--brass); }
+  .bar-row__fill{ height:100%; border-radius:99px; background:var(--secondary-deep); }
+  .bar-row__fill--you{ background:var(--primary); }
 
   /* ---------- trust strip ---------- */
   .trust{
-    background:var(--paper-card);
+    background:var(--secondary);
     border-bottom:1px solid var(--line);
   }
   .trust .wrap{
@@ -305,29 +299,34 @@
   .plat{
     display:flex;
     align-items:center;
-    gap:7px;
+    gap:8px;
     font-size:13.5px;
     font-weight:600;
-    color:var(--ink-soft);
+    color:var(--accent);
     white-space:nowrap;
   }
-  .plat svg{ opacity:.7; flex-shrink:0; }
+  .plat svg{ opacity:.82; flex-shrink:0; color:var(--accent); }
 
   /* ---------- sections ---------- */
   section{ padding-block:88px; }
   .section-head{ max-width:56ch; margin-bottom:48px; }
-  .section-head .eyebrow{ color:var(--brass); margin-bottom:12px; display:block; }
+  .section-head .eyebrow{ color:var(--primary); margin-bottom:12px; display:block; }
   .section-head h2{ font-size:clamp(26px,3.2vw,36px); }
   .section-head p{ margin-top:14px; color:var(--ink-soft); font-size:16px; max-width:52ch; }
 
-  /* how it works — receipt list */
+  /* how it works — receipt list + illustration */
+  .how-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);
+    gap:40px;
+    align-items:start;
+  }
   .receipt{
-    background:var(--paper-card);
+    background:var(--card);
     border:1px solid var(--line);
     border-radius:var(--radius-l);
-    max-width:720px;
     padding:8px 0;
-    box-shadow:0 30px 60px -40px rgba(13,43,41,0.25);
+    box-shadow:0 30px 60px -40px rgba(44,44,44,0.22);
   }
   .receipt__item{
     display:grid;
@@ -340,7 +339,7 @@
   .receipt__num{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px;
-    color:var(--brass);
+    color:var(--primary);
     padding-top:2px;
   }
   .receipt__item h3{ font-size:17.5px; font-weight:600; margin-bottom:6px; }
@@ -356,10 +355,79 @@
     border-radius:999px;
   }
 
+  /* report illustration: two overlapping sheets */
+  .report-illus{
+    position:relative;
+    height:460px;
+  }
+  .sheet{
+    position:absolute;
+    width:min(280px, 88%);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--shadow-card);
+  }
+  .sheet--back{
+    top:6px;
+    left:0;
+    background:var(--secondary);
+    transform:rotate(-6deg);
+    z-index:1;
+  }
+  .sheet--front{
+    top:158px;
+    left:118px;
+    background:var(--card);
+    transform:rotate(4deg);
+    z-index:2;
+  }
+  .sheet__kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .sheet__title{ font-family:'Fraunces', serif; font-size:18px; font-weight:600; margin-bottom:14px; }
+  .line-block{ height:7px; border-radius:4px; background:rgba(44,44,44,0.1); margin-bottom:8px; }
+  .sheet--back .line-block{ background:rgba(44,44,44,0.14); }
+  .donut-row{ display:flex; align-items:center; gap:16px; margin-top:16px; }
+  .donut{
+    width:68px; height:68px; border-radius:50%; flex-shrink:0;
+    background:conic-gradient(var(--signal-green) 0 62%, var(--secondary-deep) 62% 84%, var(--signal-red) 84% 100%);
+    position:relative;
+  }
+  .donut::after{
+    content:"";
+    position:absolute; inset:11px;
+    background:var(--secondary);
+    border-radius:50%;
+  }
+  .donut-legend{ display:flex; flex-direction:column; gap:6px; font-size:11.5px; color:var(--ink-soft); }
+  .donut-legend span{ display:flex; align-items:center; gap:7px; }
+  .dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .dot--green{ background:var(--signal-green); }
+  .dot--neutral{ background:var(--secondary-deep); }
+  .dot--red{ background:var(--signal-red); }
+
+  .sheet__head-row{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+  .bars{ display:flex; align-items:flex-end; gap:10px; height:70px; margin-bottom:14px; }
+  .bars__col{ flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .bars__fill{ width:100%; border-radius:5px 5px 2px 2px; background:var(--secondary-deep); }
+  .bars__fill--hi{ background:var(--primary); }
+  .bars__label{ font-size:9.5px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+  .sheet-alert{
+    display:flex; align-items:center; gap:8px;
+    font-size:11.5px; color:var(--signal-red);
+    background:var(--signal-red-bg);
+    padding:6px 10px; border-radius:8px;
+  }
+
   /* ---------- form ---------- */
   .form-section{
-    background:var(--petrol-900);
-    color:var(--paper);
+    background:var(--accent);
+    color:var(--bg);
   }
   .form-section .wrap{
     display:grid;
@@ -367,19 +435,19 @@
     gap:56px;
     align-items:start;
   }
-  .form-section .section-head p{ color:rgba(245,246,241,0.72); }
-  .form-section .eyebrow{ color:var(--brass-light); }
-  .form-section h2{ color:var(--paper); }
+  .form-section .section-head p{ color:rgba(253,250,245,0.72); }
+  .form-section .eyebrow{ color:var(--primary-tint); }
+  .form-section h2{ color:var(--bg); }
 
   .assurances{ margin-top:28px; display:flex; flex-direction:column; gap:12px; }
   .assurances li{
     display:flex; align-items:center; gap:10px;
-    font-size:14px; color:rgba(245,246,241,0.82);
+    font-size:14px; color:rgba(253,250,245,0.82);
   }
   .assurances svg{ flex-shrink:0; color:var(--signal-green); }
 
   .form-card{
-    background:var(--paper-card);
+    background:var(--card);
     color:var(--ink);
     border-radius:var(--radius-l);
     padding:36px;
@@ -410,13 +478,13 @@
     padding:13px 14px;
     border-radius:var(--radius-s);
     border:1.5px solid var(--line);
-    background:var(--paper);
+    background:var(--bg);
     color:var(--ink);
     transition:border-color .15s ease;
   }
-  .field input::placeholder{ color:#9aa39f; }
+  .field input::placeholder{ color:#a39a8f; }
   .field input:focus,
-  .field select:focus{ border-color:var(--petrol-700); }
+  .field select:focus{ border-color:var(--primary); }
   .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
   .form-note{
     margin-top:6px;
@@ -457,28 +525,30 @@
     align-items:center; justify-content:space-between;
     font-size:13px; color:var(--ink-soft);
   }
-  .site-footer .brand{ color:var(--ink); }
-  .site-footer .brand__dot{ background:var(--brass); }
+  .site-footer .brand img{ height:22px; }
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
+    .hero{ min-height:auto; }
     .hero .wrap{ grid-template-columns:1fr; gap:40px; }
-    .signal{ height:340px; }
+    .signal{ height:400px; }
+    .how-grid{ grid-template-columns:1fr; }
+    .report-illus{ height:380px; margin-top:8px; }
     .form-section .wrap{ grid-template-columns:1fr; }
     section{ padding-block:64px; }
   }
   @media (max-width:560px){
     .wrap{ padding-inline:18px; }
-    .hero{ padding-block:40px 64px; }
+    .hero{ padding-block:44px 56px; }
     .field-row{ grid-template-columns:1fr; }
     .form-card{ padding:24px; }
     .receipt__item{ padding:18px; grid-template-columns:38px 1fr; }
     .trust .wrap{ flex-direction:column; align-items:flex-start; }
+    .sheet--front{ left:20px; top:150px; }
   }
 
   @media (prefers-reduced-motion: reduce){
     .ticker__track{ animation:none; }
-    .brand__dot{ animation:none; }
     html{ scroll-behavior:auto; }
   }
 </style>
@@ -488,8 +558,7 @@
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="#top">
-        <span class="brand__dot" aria-hidden="true"></span>
-        МОЛВА
+        <img src="assets/logo-white.png" alt="Repas" />
       </a>
       <a class="header-cta" href="#form">Получить отчёт →</a>
     </div>
@@ -497,14 +566,14 @@
 
   <main id="top">
     <!-- HERO -->
-    <section class="hero" style="padding-top:8px;">
+    <section class="hero">
       <div class="wrap">
         <div>
           <p class="hero__eyebrow eyebrow">Бесплатный разовый отчёт · без карты</p>
           <h1>Узнайте, что на&nbsp;самом деле говорят о&nbsp;вашем ресторане <em>в сети</em></h1>
-          <p class="hero__sub">Молва собирает упоминания и отзывы с карт, отзовиков и приложений доставки — и присылает готовый разбор: тональность, кризисные алерты и сравнение с соседями по улице.</p>
+          <p class="hero__sub">Repas собирает упоминания и отзывы с карт, отзовиков и приложений доставки — и присылает готовый разбор: тональность, кризисные алерты и сравнение с соседями по улице.</p>
           <div class="hero__actions">
-            <a class="btn btn--brass" href="#form">Получить бесплатный отчёт</a>
+            <a class="btn btn--dark" href="#form">Получить бесплатный отчёт</a>
             <span class="hero__meta">~10–15 минут на почту</span>
           </div>
         </div>
@@ -541,13 +610,13 @@
       <div class="wrap">
         <span class="trust__label">Собираем данные с</span>
         <div class="trust__logos">
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Google Карты</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Яндекс.Карты</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>2ГИС</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.7 6.9L12 17.3 5.7 20.8l1.7-6.9-5.4-4.7 7.1-.6L12 2Z"/></svg>Tripadvisor</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Wolt / Glovo</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Yandex Eda / Chocofood</span>
-          <span class="plat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".9" fill="currentColor" stroke="none"/></svg>Соцсети</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Google Карты</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 4h13l3 3v13H4V4Z"/><path d="M17 4v3h3"/><path d="M8 12h8M8 16h5"/></svg>Яндекс.Карты</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/></svg>2ГИС</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.7 6.9L12 17.3 5.7 20.8l1.7-6.9-5.4-4.7 7.1-.6L12 2Z"/></svg>Tripadvisor</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Wolt / Glovo</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 10h16l-1.4 9.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 10Z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Yandex Eda / Chocofood</span>
+          <span class="plat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".9" fill="currentColor" stroke="none"/></svg>Соцсети</span>
         </div>
       </div>
     </section>
@@ -558,37 +627,73 @@
         <div class="section-head">
           <span class="eyebrow">Как это работает</span>
           <h2>От формы до отчёта — один цикл, без вашего участия</h2>
-          <p>Молва делает всю рутинную работу сама: ищет упоминания, читает их на языке площадки и переводит в понятную оценку.</p>
+          <p>Repas делает всю рутинную работу сама: ищет упоминания, читает их на языке площадки и переводит в понятную оценку.</p>
         </div>
 
-        <div class="receipt">
-          <div class="receipt__item">
-            <span class="receipt__num">01</span>
-            <div>
-              <h3>Укажите заведение</h3>
-              <p>Название, город и страна — форма ниже занимает меньше минуты, карта не нужна.</p>
+        <div class="how-grid">
+          <div class="receipt">
+            <div class="receipt__item">
+              <span class="receipt__num">01</span>
+              <div>
+                <h3>Укажите заведение</h3>
+                <p>Название, город и страна — форма ниже занимает меньше минуты, карта не нужна.</p>
+              </div>
+            </div>
+            <div class="receipt__item">
+              <span class="receipt__num">02</span>
+              <div>
+                <h3>Repas сканирует сеть</h3>
+                <p>Карты, отзовики, приложения доставки и соцсети — на языке вашего региона и соседних рынков.</p>
+              </div>
+            </div>
+            <div class="receipt__item">
+              <span class="receipt__num">03</span>
+              <div>
+                <h3>Считаем тональность</h3>
+                <p>Что хвалят, на что жалуются и есть ли признаки назревающего кризиса — до того, как он выйдет наружу.</p>
+              </div>
+            </div>
+            <div class="receipt__item">
+              <span class="receipt__num">04</span>
+              <div>
+                <h3>Отчёт приходит на почту</h3>
+                <p>Индекс репутации, тревожные отзывы и сравнение с соседними заведениями — в одном письме.</p>
+                <span class="receipt__time">≈ 10–15 минут</span>
+              </div>
             </div>
           </div>
-          <div class="receipt__item">
-            <span class="receipt__num">02</span>
-            <div>
-              <h3>Молва сканирует сеть</h3>
-              <p>Карты, отзовики, приложения доставки и соцсети — на языке вашего региона и соседних рынков.</p>
+
+          <div class="report-illus" aria-hidden="true">
+            <div class="sheet sheet--back">
+              <p class="sheet__kicker">Отчёт · Repas</p>
+              <p class="sheet__title">Тональность отзывов</p>
+              <div class="donut-row">
+                <div class="donut"></div>
+                <div class="donut-legend">
+                  <span><i class="dot dot--green"></i>Позитив 62%</span>
+                  <span><i class="dot dot--neutral"></i>Нейтрально 22%</span>
+                  <span><i class="dot dot--red"></i>Негатив 16%</span>
+                </div>
+              </div>
+              <div class="line-block" style="width:88%;margin-top:16px"></div>
+              <div class="line-block" style="width:70%"></div>
+              <div class="line-block" style="width:76%"></div>
             </div>
-          </div>
-          <div class="receipt__item">
-            <span class="receipt__num">03</span>
-            <div>
-              <h3>Считаем тональность</h3>
-              <p>Что хвалят, на что жалуются и есть ли признаки назревающего кризиса — до того, как он выйдет наружу.</p>
-            </div>
-          </div>
-          <div class="receipt__item">
-            <span class="receipt__num">04</span>
-            <div>
-              <h3>Отчёт приходит на почту</h3>
-              <p>Индекс репутации, тревожные отзывы и сравнение с соседними заведениями — в одном письме.</p>
-              <span class="receipt__time">≈ 10–15 минут</span>
+            <div class="sheet sheet--front">
+              <div class="sheet__head-row">
+                <div>
+                  <p class="sheet__kicker">Кафе Веранда</p>
+                  <p class="sheet__title">Индекс 7.8</p>
+                </div>
+                <span class="badge badge--good">Стабильно</span>
+              </div>
+              <div class="bars">
+                <div class="bars__col"><span class="bars__fill bars__fill--hi" style="height:52px"></span><span class="bars__label">ЕДА</span></div>
+                <div class="bars__col"><span class="bars__fill" style="height:34px"></span><span class="bars__label">СЕРВИС</span></div>
+                <div class="bars__col"><span class="bars__fill bars__fill--hi" style="height:44px"></span><span class="bars__label">АТМ.</span></div>
+                <div class="bars__col"><span class="bars__fill" style="height:24px"></span><span class="bars__label">ЦЕНА</span></div>
+              </div>
+              <div class="sheet-alert">⚠ 2 новых алерта на этой неделе</div>
             </div>
           </div>
         </div>
@@ -668,7 +773,7 @@
             <p class="field__error">Введите корректный email</p>
           </div>
 
-          <button class="btn btn--brass submit-btn" type="submit">
+          <button class="btn btn--dark submit-btn" type="submit">
             <span id="submitLabel">Отправить и получить отчёт</span>
           </button>
           <p class="form-note">Нажимая кнопку, вы соглашаетесь получить один email с отчётом. Без спама, без карты.</p>
@@ -682,8 +787,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <a class="brand" href="#top">
-        <span class="brand__dot" aria-hidden="true"></span>
-        МОЛВА
+        <img src="assets/logo-dark.png" alt="Repas" />
       </a>
       <span>Кавказ · Средняя Азия · Европа — мониторинг репутации ресторанов и кафе</span>
     </div>
